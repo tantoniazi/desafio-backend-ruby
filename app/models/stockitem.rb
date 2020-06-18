@@ -1,0 +1,2 @@
+class Stockitem < ApplicationRecord
+end

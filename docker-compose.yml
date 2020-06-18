@@ -1,0 +1,30 @@
+version: '3'
+services:
+  desafio-backend-ruby-db:
+    container_name: desafio-backend-ruby-db
+    image: postgres
+    expose:
+      - 5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: desafio-backend-ruby
+    volumes:
+      - .:/app
+    networks:
+      - desafio-backend-ruby-network
+  desafio-backend-ruby:
+    container_name: desafio-backend-ruby
+    build: .
+    command: bundle exec rails s -p 9090 -b '0.0.0.0'
+    volumes:
+      - .:/app
+    ports:
+      - "9090:9090"
+    depends_on:
+      - desafio-backend-ruby-db
+    networks:
+      - desafio-backend-ruby-network
+networks:
+  desafio-backend-ruby-network:
+    driver: bridge
