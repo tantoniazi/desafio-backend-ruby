@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  resources :stockitems
-  resources :stores
+  mount Rswag::Api::Engine => '/api-docs'
+  resources :stores do 
+    resources :stockitems
+  end
   resources :products
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

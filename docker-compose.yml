@@ -13,6 +13,13 @@ services:
       - .:/app
     networks:
       - desafio-backend-ruby-network
+  desafio-backend-ruby-redis:
+    container_name: desafio-backend-ruby-redis
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - desafio-backend-ruby-network
   desafio-backend-ruby:
     container_name: desafio-backend-ruby
     build: .
@@ -22,6 +29,7 @@ services:
     ports:
       - "9090:9090"
     depends_on:
+      - desafio-backend-ruby-redis
       - desafio-backend-ruby-db
     networks:
       - desafio-backend-ruby-network

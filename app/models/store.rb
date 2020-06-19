@@ -1,3 +1,3 @@
 class Store < ApplicationRecord
-  has_many :stockitems
+  has_many :stockitemss
 end

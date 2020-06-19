@@ -34,6 +34,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rswag-specs'
   gem 'dotenv-rails'
+  gem 'faker'
 end
 
 group :development do
