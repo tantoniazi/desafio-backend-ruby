@@ -2,8 +2,6 @@ namespace :db do
     desc "Erase and fill database"
       task :populate => :environment do 
       require 'faker'
-  
-      Rake::Task['db:reset'].invoke
       
       15.times do
         Product.create do |row|

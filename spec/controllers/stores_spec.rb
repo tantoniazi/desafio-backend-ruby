@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 describe StoresController, type: :controller do
+
+
+    5.times do
+        Store.create do |row|
+          row.name = Faker::Name.first_name
+          row.address = Faker::Address.street_name
+        end
+      end
+      
     it 'stores request index is 200 ok' do
         get :index
         response

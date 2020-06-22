@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 describe ProductsController, type: :controller do 
+      
+    15.times do
+        Product.create do |row|
+          row.name = Faker::Name.name
+          row.price = Faker::Number.number(digits:5)
+        end
+      end
+      
+
     it 'GET INDEX is 200 ok' do
         get :index
         response
