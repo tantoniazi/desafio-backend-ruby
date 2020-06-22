@@ -1,18 +1,5 @@
 version: '3'
 services:
-  desafio-backend-ruby-db:
-    container_name: desafio-backend-ruby-db
-    image: postgres
-    expose:
-      - 5432
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: desafio-backend-ruby
-    volumes:
-      - .:/app
-    networks:
-      - desafio-backend-ruby-network
   desafio-backend-ruby-redis:
     container_name: desafio-backend-ruby-redis
     image: 'bitnami/redis:latest'
@@ -30,7 +17,6 @@ services:
       - "9090:9090"
     depends_on:
       - desafio-backend-ruby-redis
-      - desafio-backend-ruby-db
     networks:
       - desafio-backend-ruby-network
 networks:
