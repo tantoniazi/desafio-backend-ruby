@@ -26,7 +26,7 @@ describe ProductsController, type: :controller do
 
     it 'POST UPDATE products/:id' do
         product = Product.order('RANDOM()').first
-        get :update, params: {id:product.id , product: {name: Faker::Name.name , price: Faker::Number.number(digits:5) } }
+        post :update, params: {id:product.id , product: {name: Faker::Name.name , price: Faker::Number.number(digits:5) } }
         response_body = JSON.parse(response.body)
         expect(response_body.fetch('id')).to eq(product.id)
         expect(response.status).to eq(200)

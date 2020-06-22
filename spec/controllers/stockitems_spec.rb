@@ -2,46 +2,53 @@ require 'rails_helper'
 
 describe StockitemsController, type: :controller do
 
-    it 'GET stores/:store_id/stockitems' do
+
+    15.times do
         store = Store.order('RANDOM()').first
-        get :index, params: { :store_id=> store.id }
+        product = Product.order('RANDOM()').first
+        Stockitem.create do |row|
+          row.product_id = product.id,
+          row.store_id = store.id,
+          row.stock_value = Faker::Number.number(digits:5)
+        end
+    end
+    
+    it 'GET stockitems' do
+        get :index
         expect(response.status).to eq(200)
     end
 
 
     30.times do
-        it 'POST CREATE stores/:store_id/stockitems' do
+        it 'POST CREATE stockitems' do
             store = Store.order('RANDOM()').first
             product = Product.order('RANDOM()').first
-            post :create, params: {:store_id => store.id ,  stockitem: {product_id: product.id  , store_id: store.id , stock_value: Faker::Number.number(digits:5)} }
+            post :create, params: { stockitem: {product_id: product.id  , store_id: store.id , stock_value: Faker::Number.number(digits:5)} }
             response_body = JSON.parse(response.body)
             expect(response.status).to eq(201)
         end
     end
 
-    it 'GET SHOW stores/:store_id/stockitems/:id' do
-        store = Store.order('RANDOM()').first
+    it 'GET SHOW stockitems/:id' do
         stockitem = Stockitem.order('RANDOM()').first
-        get :show, :store_id => store.id , :id => stockitem.id
+        get :show, params: {id:stockitem.id} 
         response_body = JSON.parse(response.body)
-        expect(response_body.fetch('store_id')).to eq(store.id)
         expect(response_body.fetch('id')).to eq(stockitem.id)
     end
 
 
-    it 'POST UPDATE stores/:store_id/stockitems/:id' do
+    it 'POST UPDATE stockitems/:id' do
         store = Store.order('RANDOM()').first
         stockitem = Stockitem.order('RANDOM()').first
-        get :update, :store_id =>  store.id , :id => stockitem.id ,  params: { stockitem: {product_id: product.id  , store_id: store.id , stock_value: Faker::Number.number(digits:5)} }
+        post :update, params: {id:stockitem.id ,  stockitem: {product_id: product.id  , store_id: store.id , stock_value: Faker::Number.number(digits:5)} }
         response_body = JSON.parse(response.body)
-        expect(response_body.fetch('id')).to eq(product.id)
+        expect(response_body.fetch('id')).to eq(stockitem.id)
         expect(response.status).to eq(200)
     end
 
-    it 'POST DESTROY stores/:store_id/stockitems/:id' do
-        store = Store.order('RANDOM()').first
+    it 'POST DESTROY stockitems/:id' do
         stockitem = Stockitem.order('RANDOM()').first
-        post :destroy, :store_id => store.id , :id => stockitem.id
+        post :destroy, stockitem.id 
         expect(response.status).to eq(204)
     end
 

@@ -3,8 +3,7 @@ class StockitemsController < ApplicationController
 
   # GET /stockitems
   def index
-    @stockitems = Stockitem.paginate(:page=>params[:page] , 
-                                     :per_page=>20)
+    @stockitems = Stockitem.all
     render json: @stockitems
   end
 
@@ -18,7 +17,7 @@ class StockitemsController < ApplicationController
     @stockitem = Stockitem.new(stockitem_params)
 
     if @stockitem.save
-      render json: @stockitem, status: :created
+      render json: @stockitem, status: :created, location: @stockitem
     else
       render json: @stockitem.errors, status: :unprocessable_entity
     end
@@ -41,7 +40,6 @@ class StockitemsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_stockitem
-      @store = Store.find(params[:store_id])
       @stockitem = Stockitem.find(params[:id])
     end
 
