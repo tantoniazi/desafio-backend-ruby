@@ -25,6 +25,8 @@ class StockitemsController < ApplicationController
 
   # PATCH/PUT /stockitems/1
   def update
+    AddEndangeredWorker.perform_async(csv_file)
+
     if @stockitem.update(stockitem_params)
       render json: @stockitem
     else
@@ -34,6 +36,8 @@ class StockitemsController < ApplicationController
 
   # DELETE /stockitems/1
   def destroy
+    RemoveEndangeredWorker.perform_async
+
     @stockitem.destroy
   end
 
