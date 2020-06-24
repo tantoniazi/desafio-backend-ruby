@@ -6,6 +6,7 @@ ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 ADD . /app
+RUN rm -frv /app/tmp/pids/*
 RUN bundle exec rake db:drop
 RUN bundle exec rake db:create
 RUN bundle exec rake db:migrate

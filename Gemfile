@@ -28,7 +28,8 @@ gem 'active_model_serializers', '~> 0.10.10'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'jsonapi-rails'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
+gem 'rack-cors'
+gem 'sidekiq', '~> 6.0', '>= 6.0.7'
 gem 'will_paginate', '~> 3.1', '>= 3.1.6'
 
 group :development, :test do

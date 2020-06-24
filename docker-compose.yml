@@ -5,12 +5,14 @@ services:
     image: 'bitnami/redis:latest'
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6379:6379"
     networks:
       - desafio-backend-ruby-network
   desafio-backend-ruby:
     container_name: desafio-backend-ruby
     build: .
-    command: bundle exec rails s -p 9090 -b '0.0.0.0'
+    command:  bundle exec rails s -p 9090 -b '0.0.0.0'
     volumes:
       - .:/app
     ports:
@@ -22,3 +24,5 @@ services:
 networks:
   desafio-backend-ruby-network:
     driver: bridge
+
+

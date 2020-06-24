@@ -25,9 +25,7 @@ class StockitemsController < ApplicationController
 
   # PATCH/PUT /stockitems/1
   def update
-    AddEndangeredWorker.perform_async(csv_file)
-
-    if @stockitem.update(stockitem_params)
+    if AddStockitemWorker.perform_async(@stockitem.id,params[:stockitem][:stock_value])
       render json: @stockitem
     else
       render json: @stockitem.errors, status: :unprocessable_entity
@@ -36,9 +34,7 @@ class StockitemsController < ApplicationController
 
   # DELETE /stockitems/1
   def destroy
-    RemoveEndangeredWorker.perform_async
-
-    @stockitem.destroy
+    RemoveStockitemWorker.perform_async
   end
 
   private

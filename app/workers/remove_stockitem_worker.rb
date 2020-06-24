@@ -1,14 +1,11 @@
-class RemoveEndangeredWorker
+class RemoveStockitemWorker
   include Sidekiq::Worker
   sidekiq_options retry: false
 
-  def perform
-
+  def perform(params)
     stockitem = Stockitem.where('product_id = ?  and store_id = ?' , params[:product_id] , params[:stock_id]).first()
-    if()
     stockitem.stock_value -= params[:stock_value]
     stockitem.save()
-
   end
 
 end
