@@ -1,0 +1,190 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/products":
+    post:
+      summary: post products
+      tags:
+      - products
+      parameters: []
+      responses:
+        '201':
+          description: products created
+          content: {}
+        '422':
+          description: invalid request
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                address:
+                  type: string
+              required:
+              - name
+              - address
+  "/products/{id}":
+    get:
+      summary: get products
+      tags:
+      - products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: products found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  address:
+                    type: string
+                required:
+                - id
+                - name
+                - address
+        '404':
+          description: products not found
+          content: {}
+  "/stores":
+    post:
+      summary: post stores
+      tags:
+      - stores
+      parameters: []
+      responses:
+        '201':
+          description: store created
+          content: {}
+        '422':
+          description: invalid request
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                address:
+                  type: string
+              required:
+              - name
+              - address
+          application/xml:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                address:
+                  type: string
+              required:
+              - name
+              - address
+  "/stores/{id}":
+    get:
+      summary: get stores
+      tags:
+      - stores
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: store found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  address:
+                    type: string
+                required:
+                - id
+                - name
+                - address
+        '404':
+          description: store not found
+          content: {}
+    put:
+      summary: get stores
+      tags:
+      - stores
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: store found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  address:
+                    type: string
+                required:
+                - id
+                - name
+                - address
+        '404':
+          description: store not found
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                address:
+                  type: string
+              required:
+              - name
+              - address
+          application/xml:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                address:
+                  type: string
+              required:
+              - name
+              - address
+servers:
+- url: http://localhost:9090

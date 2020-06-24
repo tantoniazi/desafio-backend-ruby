@@ -26,7 +26,7 @@ describe StoresController, type: :controller do
 
     it 'POST UPDATE stores/:id' do
         store = Store.order('RANDOM()').first
-        get :update, params: {id:store.id , store: {name: Faker::Name.first_name, address: Faker::Address.street_name } }
+        post :update, params: {id:store.id , store: {name: Faker::Name.first_name, address: Faker::Address.street_name } }
         response_body = JSON.parse(response.body)
         expect(response_body.fetch('id')).to eq(store.id)
         expect(response.status).to eq(200)
